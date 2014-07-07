@@ -126,4 +126,33 @@ trait TrustyTrait
 	{
 		return $this->is('admin');
 	}
+	
+	/**
+	 * Handle dynamic method.
+	 *
+	 * @param  string  $method  
+	 * @param  array   $parameters  
+	 * @return boolean
+	 */
+	public function __call($method, $parameters = array())
+	{
+		if(starts_with($method, 'is') and $method != 'is')
+		{
+			return $this->is(snake_case(substr($method, 2)));
+		}
+		elseif(starts_with($method, 'can') and $method != 'can')
+		{
+			return $this->can(snake_case(substr($method, 3)));
+		}
+		elseif (in_array($method, array('increment', 'decrement')))
+		{
+			return call_user_func_array(array($this, $method), $parameters);
+		}
+		else
+		{
+			$query = $this->newQuery();
+
+			return call_user_func_array(array($query, $method), $parameters);
+		}
+	}
 }
