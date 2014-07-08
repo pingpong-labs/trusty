@@ -1,6 +1,8 @@
 {
     "name": "pingpong/trusty",
-    "description": "",
+    "description": "Roles and Permissions for Laravel 4",
+    "keywords": ["roles", "permissions", "laravel", "pingpong"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Pingpong Labs",
@@ -9,7 +11,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "4.2.*"
+        "illuminate/support": "4.*"
     },
     "autoload": {
         "psr-0": {
