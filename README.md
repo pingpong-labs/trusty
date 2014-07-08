@@ -26,9 +26,9 @@ Next, Add new service provider in `app/config/app.php`.
 Next, Add new aliases in `app/config/app.php`.
 
 ```php
-'Trusty'      =>  'Pingpong\Trusty\Facades\Trusty',
-'Role'			  =>	'Pingpong\Trusty\Entities\Role',
-'Permission'	=>	'Pingpong\Trusty\Entities\Permission',
+'Trusty'      => 'Pingpong\Trusty\Facades\Trusty',
+'Role'		  => 'Pingpong\Trusty\Entities\Role',
+'Permission'  => 'Pingpong\Trusty\Entities\Permission',
 ```
 
 Next, migrate the database.
