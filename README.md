@@ -8,7 +8,7 @@
 
 Open your composer.json file, and add the new required package.
 ```
-"pingpong/trusty": "dev-master" 
+"pingpong/trusty": "1.0.*" 
 ```
 Next, open a terminal and run.
 ```
