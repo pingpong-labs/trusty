@@ -163,11 +163,11 @@ Get all permission from current users.
 ```php
 $myPermissions = Auth::user()->getPermissions();
 dd($myPermissions);
+
 // or 
 
 $permissions = Auth::user()->permissions();
 dd($permissions);
-
 ```
 
 Get role for current user.
