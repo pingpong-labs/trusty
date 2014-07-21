@@ -127,6 +127,17 @@ $user = Auth::user();
 $user->roles()->attach($role_id);
 ```
 
+Adding role to the user.
+```php
+Auth::user()->setRole(1);
+```
+
+Updating role user.
+```php
+$role_id = 1;
+Auth::user()->updateRole($role_id);
+```
+
 Check role for current user.
 ```php
 if(Auth::user()->is('administrator'))
