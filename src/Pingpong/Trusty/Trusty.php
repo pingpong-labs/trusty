@@ -53,8 +53,7 @@ class Trusty
 	{
 		if( ! Auth::check()) return $this->forbidden();
 
-		$permissions = Permission::lists('slug');
-		foreach($permissions as $permission)
+		foreach(Permission::lists('slug') as $permission)
 		{
 		    Route::filter($permission, function() use ($permission)
 		    {
