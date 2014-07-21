@@ -51,16 +51,25 @@ class Trusty
 	 */
 	public function registerPermissions()
 	{
+		if( ! Auth::check()) return $this->forbidden();
+
 		$permissions = Permission::lists('slug');
 		foreach($permissions as $permission)
 		{
 		    Route::filter($permission, function() use ($permission)
 		    {
-		        if( ! Auth::user()->can($permission))
-		        {
-		            return View::make($this->view);
-		        }
+		        if( ! Auth::user()->can($permission)) return $this->forbidden();
 		    });
 		}
+	}
+
+	/**
+	 * Show forbidden page.
+	 * 
+	 * @return mixed 
+	 */
+	public function forbidden()
+	{
+        return View::make($this->view);			
 	}
 }
