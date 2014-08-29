@@ -41,7 +41,12 @@ trait TrustyTrait
 	{
 		return $this->roles->first();
 	}
-
+    
+    /**
+     * Get role id
+     *
+     * @return mixed
+     */
 	public function getRoleId()
 	{
 		return $this->getRole() ? $this->getRole()->id : null;

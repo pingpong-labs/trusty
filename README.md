@@ -129,7 +129,7 @@ $user->roles()->attach($role_id);
 
 Adding role to the user.
 ```php
-Auth::user()->setRole(1);
+Auth::user()->addRole(1);
 ```
 
 Updating role user.
@@ -189,7 +189,7 @@ $myRole = Auth::user()->getRole();
 Simple filtering route based on permission.
 ```php
 
-// set view when the current user is not have a specified permission
+// set view when the current user not have a specified permission
 Trusty::setView('403');
 
 // register all permission as filter
@@ -199,7 +199,7 @@ Trusty::registerPermissions();
 Trusty::when('admin/*', 'filter_name');
  
 // mutiple request 
-Trusty::when(['admin/users'. 'admin/users/*'], 'manage_users');
+Trusty::when(['admin/users', 'admin/users/*'], 'manage_users');
 ```
 
 ### License
