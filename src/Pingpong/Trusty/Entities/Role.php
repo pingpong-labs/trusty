@@ -1,11 +1,18 @@
 <?php namespace Pingpong\Trusty\Entities;
 
 use Pingpong\Trusty\Traits\SlugableTrait;
-use \Config;
+use Illuminate\Config\Repository;
 
 class Role extends \Eloquent
 {
 	use SlugableTrait;
+
+	/**
+	 * The Laravel Config Repository
+	 *
+	 * @var Repository
+	 */
+	protected $config;
 	
 	/**
 	 * Fillable property.
@@ -13,6 +20,11 @@ class Role extends \Eloquent
 	 * @var array
 	 */
 	protected $fillable = ['name', 'slug', 'description'];
+
+	public function __construct(Repository $config)
+	{
+		$this->config = $config;
+	}
 
 	/**
 	 * Relation to "Permission".
@@ -31,9 +43,15 @@ class Role extends \Eloquent
 	 */
 	public function users()
 	{
-		return $this->belongsToMany(Config::get('auth.model'))->withTimestamps();
+		return $this->belongsToMany($this->config->get('auth.model'))->withTimestamps();
 	}
 
+	/**
+	 * Check whether the user role has a given permission.
+	 *
+	 * @param  string  $permission
+	 * @return boolean
+	 */
 	public function can($permission)
 	{
 		return in_array($permission, array_fetch($this->permissions->toArray(), 'slug'));
