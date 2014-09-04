@@ -170,8 +170,10 @@ if(Auth::user()->canManageUsers())
 }
 ```
 
-Check permissions for current role.
+Check permissions against a role.
 ```php
+$role = Role::findOrFail(1);
+
 if ($role->can('manage_users'))
 {
 	// your code here
@@ -180,6 +182,8 @@ if ($role->can('manage_users'))
 
 Or using magic method.
 ```php
+$role = Role::findOrFail(1);
+
 if($role->canManageUsers())
 {
 	// your code here
