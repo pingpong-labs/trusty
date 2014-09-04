@@ -34,7 +34,7 @@ class Role extends \Eloquent
 		return $this->belongsToMany(Config::get('auth.model'))->withTimestamps();
 	}
 
-	public function has($permission)
+	public function can($permission)
 	{
 		return in_array($permission, array_fetch($this->permissions->toArray(), 'slug'));
 	}
