@@ -31,7 +31,7 @@ class Role extends \Eloquent
 	 */
 	public function users()
 	{
-		return $this->belongsToMany($this->config->get('auth.model'))->withTimestamps();
+		return $this->belongsToMany(Config::get('auth.model'))->withTimestamps();
 	}
 
 	/**
