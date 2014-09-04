@@ -35,7 +35,7 @@ class Role extends \Eloquent
 	}
 
 	/**
-	 * Check whether the user role has a given permission.
+	 * Check whether the user role can perform the given permission.
 	 *
 	 * @param  string  $permission
 	 * @return boolean
