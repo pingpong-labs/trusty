@@ -44,4 +44,25 @@ class Role extends \Eloquent
 	{
 		return in_array($permission, array_fetch($this->permissions->toArray(), 'slug'));
 	}
+
+	/**
+	 * Handle dynamic method.
+	 *
+	 * @param  string  $method  
+	 * @param  array   $parameters  
+	 * @return boolean
+	 */
+	public function __call($method, $parameters = array())
+	{
+		if(starts_with($method, 'can') and $method != 'can')
+		{
+			return $this->can(snake_case(substr($method, 3)));
+		}
+		else
+		{
+			$query = $this->newQuery();
+
+			return call_user_func_array(array($query, $method), $parameters);
+		}
+	}
 }

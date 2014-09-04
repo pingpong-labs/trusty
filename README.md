@@ -166,7 +166,23 @@ Or using magic method.
 ```php
 if(Auth::user()->canManageUsers())
 {
-	// your code
+	// your code here
+}
+```
+
+Check permissions for current role.
+```php
+if ($role->can('manage_users'))
+{
+	// your code here
+}
+```
+
+Or using magic method.
+```php
+if($role->canManageUsers())
+{
+	// your code here
 }
 ```
 
