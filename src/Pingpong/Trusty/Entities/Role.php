@@ -1,18 +1,11 @@
 <?php namespace Pingpong\Trusty\Entities;
 
 use Pingpong\Trusty\Traits\SlugableTrait;
-use Illuminate\Config\Repository;
+use \Config;
 
 class Role extends \Eloquent
 {
 	use SlugableTrait;
-
-	/**
-	 * The Laravel Config Repository
-	 *
-	 * @var Repository
-	 */
-	protected $config;
 	
 	/**
 	 * Fillable property.
@@ -20,11 +13,6 @@ class Role extends \Eloquent
 	 * @var array
 	 */
 	protected $fillable = ['name', 'slug', 'description'];
-
-	public function __construct(Repository $config)
-	{
-		$this->config = $config;
-	}
 
 	/**
 	 * Relation to "Permission".
