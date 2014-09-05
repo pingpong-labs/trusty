@@ -166,7 +166,27 @@ Or using magic method.
 ```php
 if(Auth::user()->canManageUsers())
 {
-	// your code
+	// your code here
+}
+```
+
+Check permissions against a role.
+```php
+$role = Role::findOrFail(1);
+
+if ($role->can('manage_users'))
+{
+	// your code here
+}
+```
+
+Or using magic method.
+```php
+$role = Role::findOrFail(1);
+
+if($role->canManageUsers())
+{
+	// your code here
 }
 ```
 
