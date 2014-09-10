@@ -1,5 +1,7 @@
 ## Trusty - Roles and Permissions for Laravel 4
 
+[![Build Status](https://travis-ci.org/pingpong-labs/trusty.svg?branch=master)](https://travis-ci.org/pingpong-labs/trusty)
+
 ### Server Requirements
 
 - PHP 5.4 or higher
@@ -209,9 +211,6 @@ $myRole = Auth::user()->getRole();
 Simple filtering route based on permission.
 ```php
 
-// set view when the current user not have a specified permission
-Trusty::setView('403');
-
 // register all permission as filter
 Trusty::registerPermissions();
 
@@ -220,6 +219,28 @@ Trusty::when('admin/*', 'filter_name');
  
 // mutiple request 
 Trusty::when(['admin/users', 'admin/users/*'], 'manage_users');
+```
+
+Abort the user if that user have not a specify permission.
+```php
+Trusty::forbidden();
+```
+
+Maybe you can do something like this.
+```php
+if( ! Auth::user()->canManageUsers())
+{
+	Trusty::forbidden();
+}
+```
+
+When you run `forbidden` method, that's will throw an exception. You can handle this exception using Laravel error handler feature. You can do something like this.
+
+```php
+App::error(function(Pingpong\Trusty\Exceptions\ForbiddenException $e)
+{
+	return Response::make($e->getMessage(), 403);
+});
 ```
 
 ### License

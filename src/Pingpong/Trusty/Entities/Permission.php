@@ -1,8 +1,9 @@
 <?php namespace Pingpong\Trusty\Entities;
 
+use Illuminate\Database\Eloquent\Model;
 use Pingpong\Trusty\Traits\SlugableTrait;
 
-class Permission extends \Eloquent
+class Permission extends Model
 {
 	use SlugableTrait;
 
@@ -22,4 +23,5 @@ class Permission extends \Eloquent
 	{
 		return $this->belongsToMany(__NAMESPACE__ . '\\Role')->withTimestamps();
 	}
+	
 }
