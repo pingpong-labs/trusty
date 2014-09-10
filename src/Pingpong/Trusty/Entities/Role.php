@@ -1,7 +1,8 @@
 <?php namespace Pingpong\Trusty\Entities;
 
+use Illuminate\Support\Facades\Config;
+use Illuminate\Database\Eloquent\Model;
 use Pingpong\Trusty\Traits\SlugableTrait;
-use \Config;
 
 class Role extends \Eloquent
 {
