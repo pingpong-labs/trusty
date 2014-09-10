@@ -1,7 +1,8 @@
 <?php namespace Pingpong\Trusty;
 
+use Illuminate\Auth\Guard;
+use Illuminate\Routing\Router;
 use Pingpong\Trusty\Entities\Permission;
-use Auth, View, Request, Closure, Route;
 
 class Trusty
 {
@@ -13,51 +14,49 @@ class Trusty
 	protected $httpVerbs = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'];
 
 	/**
-	 * The name of view for showing forbiden page when the user is not have a specified permission.
-	 * 	
-	 * @var string
+	 * The constructor.
+	 * 
+	 * @param Guard  $auth   
+	 * @param Router $router 
 	 */
-	protected $view = '403';
+	public function __construct(Guard $auth, Router $router)
+	{
+		$this->auth = $auth;
+		$this->router = $router;
+	}
 
 	/**
 	 * Register new filter for the specified request.
 	 * 
 	 * @param  string|array $request    
 	 * @param  string       $permission 
-	 * @return void           
+	 * @return self           
 	 */
 	public function when($request, $permission)
 	{
 		foreach ((array) $request as $uri)
 		{
-			Route::when($uri, $permission, $this->httpVerbs);
+			$this->router->when($uri, $permission, $this->httpVerbs);
 		}
 	}
 
 	/**
-	 * Set new view.
-	 * 
-	 * @param string $view
-	 */
-	public function setView($view)
-	{
-		$this->view = $view;
-	}
-
-	/**
 	 * Register the permissions.
-	 * 
+	 *
+	 * @param  array|null $permissions 
 	 * @return void 
 	 */
-	public function registerPermissions()
+	public function registerPermissions(array $permissions = null)
 	{
-		if( ! Auth::check()) return $this->forbidden();
+		if( ! $this->auth->check()) $this->forbidden();
 
-		foreach(Permission::lists('slug') as $permission)
+		$permissions = $permissions ?: Permission::lists('slug');
+
+		foreach($permissions as $permission)
 		{
-		    Route::filter($permission, function() use ($permission)
+		    $this->router->filter($permission, function() use ($permission)
 		    {
-		        if( ! Auth::user()->can($permission)) return $this->forbidden();
+		        if( ! $this->auth->user()->can($permission)) $this->forbidden();
 		    });
 		}
 	}
@@ -69,6 +68,7 @@ class Trusty
 	 */
 	public function forbidden()
 	{
-        return View::make($this->view);			
+		throw new Exceptions\ForbiddenException("Sorry, you don't have permission to access this page.");
 	}
+
 }
