@@ -2,11 +2,14 @@
 
 use Mockery as m;
 use Pingpong\Trusty\Trusty;
+use Pingpong\Trusty\TrustyServiceProvider;
 
 class TrustyTest extends PHPUnit_Framework_TestCase {
 
 	protected $auth;
+
 	protected $router;
+
 	protected $trusty;
 
 	public function setUp()
@@ -14,6 +17,9 @@ class TrustyTest extends PHPUnit_Framework_TestCase {
 		$this->auth = m::mock('Illuminate\Auth\Guard');
 		$this->router = m::mock('Illuminate\Routing\Router');
 		$this->trusty = new Trusty($this->auth, $this->router);
+
+		$this->app = m::mock('Illuminate\Container\Container');
+		$this->provider = new TrustyServiceProvider($this->app);
 	}
 
 	public function test_initialize()
@@ -45,6 +51,16 @@ class TrustyTest extends PHPUnit_Framework_TestCase {
 	{
 		$this->setExpectedException('Pingpong\Trusty\Exceptions\ForbiddenException');
 		$this->trusty->forbidden();
+	}
+
+	public function test_service_provider()
+	{
+		$this->assertInstanceOf('Pingpong\Trusty\TrustyServiceProvider', $this->provider);
+		$this->app->shouldReceive('share');
+		$this->app->shouldReceive('offsetSet');
+		$this->provider->register();	
+		$this->app->shouldReceive('offsetGet')->once()->with('trusty')->andReturn($this->trusty);
+		$this->assertInstanceOf('Pingpong\Trusty\Trusty', $this->app['trusty']);
 	}
 	
 }
