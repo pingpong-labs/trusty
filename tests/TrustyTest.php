@@ -6,6 +6,10 @@ use Pingpong\Trusty\TrustyServiceProvider;
 
 class TrustyTest extends PHPUnit_Framework_TestCase {
 
+	protected $app;
+	
+	protected $provider;
+
 	protected $auth;
 
 	protected $router;
@@ -16,9 +20,8 @@ class TrustyTest extends PHPUnit_Framework_TestCase {
 	{
 		$this->auth = m::mock('Illuminate\Auth\Guard');
 		$this->router = m::mock('Illuminate\Routing\Router');
-		$this->trusty = new Trusty($this->auth, $this->router);
-
 		$this->app = m::mock('Illuminate\Container\Container');
+		$this->trusty = new Trusty($this->auth, $this->router);
 		$this->provider = new TrustyServiceProvider($this->app);
 	}
 
