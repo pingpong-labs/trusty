@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Str;
 
-trait SlugableTrait
-{
+trait SlugableTrait {
+
 	/**
 	 * Set slug property.
 	 *
@@ -13,4 +13,5 @@ trait SlugableTrait
 	{
 		$this->attributes['slug'] = Str::slug($value, '_');
 	}
+	
 }

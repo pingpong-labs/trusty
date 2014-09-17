@@ -1,7 +1,7 @@
 <?php namespace Pingpong\Trusty\Traits;
 
-trait TrustyTrait
-{
+trait TrustyTrait {
+	
 	/**
 	 * Relation to "Role".
 	 *
@@ -160,4 +160,5 @@ trait TrustyTrait
 			return call_user_func_array(array($query, $method), $parameters);
 		}
 	}
+	
 }
