@@ -11,6 +11,11 @@ class TrustyServiceProvider extends ServiceProvider {
 	 */
 	protected $defer = false;
 
+	/**
+	 * Boot the package.
+	 * 
+	 * @return void 
+	 */
 	public function boot()
 	{
 		$this->package('pingpong/trusty');
@@ -25,7 +30,7 @@ class TrustyServiceProvider extends ServiceProvider {
 	{
 		$this->app['pingpong.trusty'] = $this->app->share(function($app)
 		{
-			return new Trusty;	
+			return new Trusty($app['auth'], $app['router']);	
 		});
 	}
 
