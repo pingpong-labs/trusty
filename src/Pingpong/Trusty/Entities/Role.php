@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 use Pingpong\Trusty\Traits\SlugableTrait;
 
-class Role extends \Eloquent
-{
+class Role extends Model {
+
 	use SlugableTrait;
 	
 	/**

@@ -3,8 +3,8 @@
 use Illuminate\Database\Eloquent\Model;
 use Pingpong\Trusty\Traits\SlugableTrait;
 
-class Permission extends Model
-{
+class Permission extends Model {
+	
 	use SlugableTrait;
 
 	/**
