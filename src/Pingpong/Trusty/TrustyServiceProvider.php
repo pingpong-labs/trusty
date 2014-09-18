@@ -30,7 +30,9 @@ class TrustyServiceProvider extends ServiceProvider {
 	{
 		$this->app['pingpong.trusty'] = $this->app->share(function($app)
 		{
-			return new Trusty($app['auth'], $app['router']);	
+			$auth = $app['auth']->driver();
+			
+			return new Trusty($auth, $app['router']);	
 		});
 	}
 
