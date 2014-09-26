@@ -2,7 +2,7 @@
     "name": "pingpong/trusty",
     "description": "Roles and Permissions for Laravel 4",
     "keywords": ["roles", "permissions", "laravel", "pingpong"],
-    "license": "MIT",
+    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Pingpong Labs",
