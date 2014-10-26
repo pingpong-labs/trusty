@@ -121,16 +121,6 @@ trait TrustyTrait {
 
 		$this->addRole($id);
 	}
-
-	/**
-	 * Determine whether this user is an administrator.
-	 * 
-	 * @return boolean
-	 */
-	public function isAdmin()
-	{
-		return $this->is('admin');
-	}
 	
 	/**
 	 * Handle dynamic method.
