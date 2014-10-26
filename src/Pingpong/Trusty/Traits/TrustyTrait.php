@@ -139,15 +139,15 @@ trait TrustyTrait {
 		{
 			return $this->can(snake_case(substr($method, 3)));
 		}
-		elseif (in_array($method, array('increment', 'decrement')))
+		elseif (in_array($method, ['increment', 'decrement']))
 		{
-			return call_user_func_array(array($this, $method), $parameters);
+			return call_user_func_array([$this, $method], $parameters);
 		}
 		else
 		{
 			$query = $this->newQuery();
 
-			return call_user_func_array(array($query, $method), $parameters);
+			return call_user_func_array([$query, $method], $parameters);
 		}
 	}
 	
