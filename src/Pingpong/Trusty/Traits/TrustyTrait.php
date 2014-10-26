@@ -59,7 +59,7 @@ trait TrustyTrait {
 	 */
 	public function permissions()
 	{
-		return ! is_null($this->getPermissions()) ? $this->getPermissions()->lists('slug') : null;
+		return ! is_null($this->getPermissions()) ? $this->getPermissions()->lists('slug') : [];
 	}
 
 	/**
