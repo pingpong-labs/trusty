@@ -4,8 +4,10 @@ use Illuminate\Auth\Guard;
 use Illuminate\Routing\Router;
 use Pingpong\Trusty\Entities\Permission;
 
-class Trusty
-{
+class Trusty {
+
+	const VERSION = '1.x-dev';
+	
 	/**
 	 * The avaliable HTTP Verbs.
 	 * 
