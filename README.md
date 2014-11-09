@@ -246,3 +246,7 @@ App::error(function(Pingpong\Trusty\Exceptions\ForbiddenException $e)
 ### License
 
 This package is open-sourced software licensed under [The BSD 3-Clause License](http://opensource.org/licenses/BSD-3-Clause)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/pingpong-labs/trusty/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
