@@ -50,8 +50,6 @@ class Trusty {
 	 */
 	public function registerPermissions(array $permissions = null)
 	{
-		if( ! $this->auth->check()) $this->forbidden();
-
 		$permissions = $permissions ?: Permission::lists('slug');
 
 		foreach($permissions as $permission)
