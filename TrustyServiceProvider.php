@@ -28,7 +28,7 @@ class TrustyServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        $this->app['pingpong.trusty'] = $this->app->share(function ($app)
+        $this->app['trusty'] = $this->app->share(function ($app)
         {
             $auth = $app['auth']->driver();
 
@@ -43,7 +43,7 @@ class TrustyServiceProvider extends ServiceProvider {
      */
     public function provides()
     {
-        return array('pingpong.trusty');
+        return array('trusty');
     }
 
 }

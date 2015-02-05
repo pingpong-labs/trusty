@@ -4,9 +4,12 @@ use Illuminate\Support\Facades\Facade;
 
 class Trusty extends Facade {
 
+	/**
+	 * @return string
+     */
 	protected static function getFacadeAccessor()
 	{
-		return 'pingpong.trusty';
+		return 'trusty';
 	}
-	
+
 }
