@@ -1,29 +1,34 @@
 {
-    "name": "pingpong/trusty",
-    "description": "Roles and Permissions for Laravel 4",
-    "keywords": ["roles", "permissions", "laravel", "pingpong"],
-    "license": "BSD-3-Clause",
-    "authors": [
-        {
-            "name": "Pingpong Labs",
-            "email": "pingpong.labs@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.4.0",
-        "illuminate/auth": "~4",
-        "illuminate/support": "~4",
-        "illuminate/routing": "~4",
-        "illuminate/database": "~4"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "~4",
-        "mockery/mockery": "~0.9"
-    },
-    "autoload": {
-        "psr-4": {
-            "Pingpong\\Trusty": ""
-        }
-    },
-    "minimum-stability": "stable"
+  "name": "pingpong/trusty",
+  "description": "Roles and Permissions for Laravel 4",
+  "keywords": [
+    "roles",
+    "permissions",
+    "laravel",
+    "pingpong"
+  ],
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Pingpong Labs",
+      "email": "pingpong.labs@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "illuminate/auth": "~4",
+    "illuminate/support": "~4",
+    "illuminate/routing": "~4",
+    "illuminate/database": "~4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4",
+    "mockery/mockery": "~0.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pingpong\\Trusty": ""
+    }
+  },
+  "minimum-stability": "stable"
 }
