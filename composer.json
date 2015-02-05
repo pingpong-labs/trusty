@@ -21,8 +21,8 @@
         "mockery/mockery": "0.9.*"
     },
     "autoload": {
-        "psr-0": {
-            "Pingpong\\Trusty": "src/"
+        "psr-4": {
+            "Pingpong\\Trusty": ""
         }
     },
     "minimum-stability": "stable"
