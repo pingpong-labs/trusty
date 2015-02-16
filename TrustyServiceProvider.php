@@ -18,7 +18,9 @@ class TrustyServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        $this->package('pingpong/trusty', 'trusty', __DIR__ . '/src');
+        $this->publishes([
+            __DIR__ . '/src/migrations/' => base_path('/database/migrations')
+        ]);
     }
 
     /**
