@@ -22,7 +22,7 @@ class Role extends Model {
      */
     public function permissions()
     {
-        return $this->belongsToMany(__NAMESPACE__ . '\\Permission')->withTimestamps();
+        return $this->belongsToMany(config('trusty.model.permission'))->withTimestamps();
     }
 
     /**

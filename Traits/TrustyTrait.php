@@ -9,7 +9,7 @@ trait TrustyTrait {
      */
     public function roles()
     {
-        return $this->belongsToMany('Pingpong\Trusty\Entities\Role')->withTimestamps();
+        return $this->belongsToMany(config('trusty.model.role'))->withTimestamps();
     }
 
     /**
