@@ -59,7 +59,7 @@ trait TrustyTrait {
     {
         foreach ($this->roles as $role)
         {
-            if ($role->name == $name) return true;
+            if ($role->name == $name || $role->slug == $name) return true;
         }
 
         return false;
@@ -75,7 +75,7 @@ trait TrustyTrait {
         {
             foreach ($role->permissions as $permission)
             {
-                if ($permission->name == $name) return true;
+                if ($permission->name == $name || $permission->slug == $name) return true;
             }
         }
 
