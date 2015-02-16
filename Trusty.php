@@ -3,6 +3,7 @@
 use Illuminate\Auth\Guard;
 use Illuminate\Routing\Router;
 use Pingpong\Trusty\Entities\Permission;
+use Pingpong\Trusty\Exceptions\PermissionDeniedException;
 
 class Trusty {
 
@@ -67,6 +68,44 @@ class Trusty {
     public function forbidden()
     {
         throw new Exceptions\ForbiddenException("Sorry, you don't have permission to access this page.");
+    }
+
+    /**
+     * Filter the specified request by the given permissions.
+     * 
+     * @param  string|array $permissions
+     * @return void
+     */
+    public function filterByPermission($permissions)
+    {
+        $permissions = is_array($permissions) ? $permissions : func_get_args();
+
+        foreach ($permissions as $permission)
+        {
+            if ( ! Auth::user()->can($permission))
+            {
+                throw new PermissionDeniedException("You don't have permission to \"{$permission}\".");
+            }
+        }
+    }
+
+    /**
+     * Filter the specified request by the given roles.
+     * 
+     * @param  string|array $roles
+     * @return void
+     */
+    public function filterByRole($roles)
+    {
+        $roles = is_array($roles) ? $roles : func_get_args();
+
+        foreach ($roles as $role)
+        {
+            if ( ! Auth::user()->is($role))
+            {
+                throw new PermissionDeniedException("You aren't a \"{$role}\".");
+            }
+        }
     }
 
 }
