@@ -82,7 +82,7 @@ class Trusty {
 
         foreach ($permissions as $permission)
         {
-            if ( ! Auth::user()->can($permission))
+            if ( ! $this->auth->user()->can($permission))
             {
                 throw new PermissionDeniedException("You don't have permission to \"{$permission}\".");
             }
@@ -101,7 +101,7 @@ class Trusty {
 
         foreach ($roles as $role)
         {
-            if ( ! Auth::user()->is($role))
+            if ( ! $this->auth->user()->is($role))
             {
                 throw new PermissionDeniedException("You aren't a \"{$role}\".");
             }
