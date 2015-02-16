@@ -6,8 +6,6 @@ use Pingpong\Trusty\Entities\Permission;
 
 class Trusty {
 
-    const VERSION = '1.x-dev';
-
     /**
      * The avaliable HTTP Verbs.
      *
