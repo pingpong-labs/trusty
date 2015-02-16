@@ -26,24 +26,66 @@ class Role extends Model {
     }
 
     /**
+     * @param $query
+     * @param $search
+     * @return mixed
+     */
+    public function scopeSearch($query, $search)
+    {
+        return $query->whereName($search)
+            ->orWhere('id', intval($search))
+            ->orWhere('slug', intval($search));
+    }
+
+    /**
+     * @param $id
+     */
+    public function addPermission($id)
+    {
+        $this->permissions()->attach($id);
+    }
+
+    /**
+     * @param $ids
+     */
+    public function removePermission($ids)
+    {
+        $ids = is_array($ids) ? $ids : func_get_args();
+
+        $this->permissions()->detach($ids);
+    }
+
+    /**
+     *
+     */
+    public function clearPermissions()
+    {
+        $this->removePermission($this->permissions->lists('id'));
+    }
+
+
+    /**
      * Relation to "User".
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users()
     {
-        return $this->belongsToMany(Config::get('auth.model'))->withTimestamps();
+        return $this->belongsToMany(config('trusty.model.user'))->withTimestamps();
     }
 
     /**
-     * Check whether the user role can perform the given permission.
-     *
-     * @param  string $permission
-     * @return boolean
+     * @param $name
+     * @return bool
      */
-    public function can($permission)
+    public function can($name)
     {
-        return in_array($permission, array_fetch($this->permissions->toArray(), 'slug'));
+        foreach ($this->permissions as $permission)
+        {
+            if ($permission->name == $name) return true;
+        }
+
+        return false;
     }
 
     /**
