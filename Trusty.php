@@ -55,7 +55,10 @@ class Trusty {
         {
             $this->router->filter($permission, function () use ($permission)
             {
-                if ( ! $this->auth->user()->can($permission)) $this->forbidden();
+                if ( ! $this->auth->user()->can($permission))
+                {
+                    $this->forbidden();
+                }
             });
         }
     }
@@ -72,7 +75,7 @@ class Trusty {
 
     /**
      * Filter the specified request by the given permissions.
-     * 
+     *
      * @param  string|array $permissions
      * @return void
      */
@@ -91,7 +94,7 @@ class Trusty {
 
     /**
      * Filter the specified request by the given roles.
-     * 
+     *
      * @param  string|array $roles
      * @return void
      */

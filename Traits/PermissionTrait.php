@@ -6,7 +6,7 @@ trait PermissionTrait {
 
     /**
      * Filter the specified request by the given permissions.
-     * 
+     *
      * @param  string|array $permissions
      * @return void
      */
@@ -22,7 +22,7 @@ trait PermissionTrait {
 
     /**
      * Filter the specified request by the given roles.
-     * 
+     *
      * @param  string|array $roles
      * @return void
      */

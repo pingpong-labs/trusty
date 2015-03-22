@@ -1,7 +1,6 @@
 <?php namespace Pingpong\Trusty\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Config;
 use Pingpong\Trusty\Traits\SlugableTrait;
 
 class Role extends Model {
@@ -33,8 +32,8 @@ class Role extends Model {
     public function scopeSearch($query, $search)
     {
         return $query->whereName($search)
-            ->orWhere('id', intval($search))
-            ->orWhere('slug', intval($search));
+                     ->orWhere('id', intval($search))
+                     ->orWhere('slug', intval($search));
     }
 
     /**
@@ -82,7 +81,10 @@ class Role extends Model {
     {
         foreach ($this->permissions as $permission)
         {
-            if ($permission->name == $name) return true;
+            if ($permission->name == $name)
+            {
+                return true;
+            }
         }
 
         return false;

@@ -1,7 +1,7 @@
 <?php namespace Pingpong\Trusty\Traits;
 
-use Pingpong\Trusty\Entities\Role;
 use Illuminate\Support\Collection;
+use Pingpong\Trusty\Entities\Role;
 
 trait TrustyTrait {
 
@@ -59,7 +59,10 @@ trait TrustyTrait {
     {
         foreach ($this->roles as $role)
         {
-            if ($role->name == $name || $role->slug == $name) return true;
+            if ($role->name == $name || $role->slug == $name)
+            {
+                return true;
+            }
         }
 
         return false;
@@ -75,7 +78,10 @@ trait TrustyTrait {
         {
             foreach ($role->permissions as $permission)
             {
-                if ($permission->name == $name || $permission->slug == $name) return true;
+                if ($permission->name == $name || $permission->slug == $name)
+                {
+                    return true;
+                }
             }
         }
 

@@ -1,3 +1,5 @@
 <?php namespace Pingpong\Trusty\Exceptions;
 
-class PermissionDeniedException extends \Exception {}
+class PermissionDeniedException extends \Exception {
+
+}
