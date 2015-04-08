@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Trusty\Entities;
+<?php
+
+namespace Pingpong\Trusty;
 
 use Illuminate\Database\Eloquent\Model;
 use Pingpong\Trusty\Traits\SlugableTrait;
