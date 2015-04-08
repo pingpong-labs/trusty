@@ -67,6 +67,16 @@ trait TrustyTrait {
 
         return false;
     }
+    
+    /**
+     * Determine whether the current user is not have role that given by name parameter.
+     *
+     * @return boolean
+     */
+    public function isNot($name)
+    {
+        return ! $this->is($name);
+    }
 
     /**
      * @param $name
@@ -86,6 +96,16 @@ trait TrustyTrait {
         }
 
         return false;
+    }
+    
+    /**
+     * Determine whether the current user can not do a specified permission.
+     *
+     * @return boolean
+     */
+    public function canNot($name)
+    {
+        return ! $this->can($name);
     }
 
     /**
