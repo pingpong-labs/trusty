@@ -2,7 +2,7 @@
 
 use Illuminate\Auth\Guard;
 use Illuminate\Routing\Router;
-use Pingpong\Trusty\Entities\Permission;
+use Pingpong\Trusty\Permission;
 use Pingpong\Trusty\Exceptions\PermissionDeniedException;
 
 class Trusty {

@@ -1,7 +1,7 @@
 <?php namespace Pingpong\Trusty\Traits;
 
 use Illuminate\Support\Collection;
-use Pingpong\Trusty\Entities\Role;
+use Pingpong\Trusty\Role;
 
 trait TrustyTrait {
 
