@@ -1,125 +1,129 @@
 <?php namespace Pingpong\Trusty\Traits;
 
+use Illuminate\Support\Collection;
+use Pingpong\Trusty\Role;
+
 trait TrustyTrait {
 
     /**
-     * Relation to "Role".
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany|null
+     * @return mixed
      */
     public function roles()
     {
-        return $this->belongsToMany('Pingpong\Trusty\Entities\Role')->withTimestamps();
+        return $this->belongsToMany(config('trusty.model.role'))->withTimestamps();
     }
 
     /**
-     * Get all roles from current user.
-     *
-     * @return array|null
+     * @param $idOrName
      */
-    public function getRoles()
+    public function addRole($idOrName)
     {
-        return ! is_null($this->roles) ? $this->roles->lists('slug') : null;
-    }
+        $ids = is_array($idOrName) ? $idOrName : func_get_args();
 
-    /**
-     * Get all roles from current user.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection|null
-     */
-    public function getPermissions()
-    {
-        return ! is_null($this->getRole()) ? $this->getRole()->permissions : null;
-    }
-
-    /**
-     * Get user role from the current user.
-     *
-     * @return \Role
-     */
-    public function getRole()
-    {
-        return $this->roles->first();
-    }
-
-    /**
-     * Get role id
-     *
-     * @return mixed
-     */
-    public function getRoleId()
-    {
-        return $this->getRole() ? $this->getRole()->id : null;
-    }
-
-    /**
-     * Get all permissions from the current user.
-     *
-     * @return array|null
-     */
-    public function permissions()
-    {
-        return ! is_null($this->getPermissions()) ? $this->getPermissions()->lists('slug') : [];
-    }
-
-    /**
-     * Check whether the user has a given role.
-     *
-     * @param  string $role
-     * @return boolean
-     */
-    public function is($role)
-    {
-        return in_array($role, $this->getRoles());
-    }
-
-    /**
-     * Check whether the user has a given permission.
-     *
-     * @param  string $permission
-     * @return boolean
-     */
-    public function can($permission)
-    {
-        return in_array($permission, $this->permissions());
-    }
-
-    /**
-     * Has role scope.
-     *
-     * @param  Builder $query
-     * @param  string $type
-     * @return Builder
-     */
-    public function scopeHasRole($query, $type)
-    {
-        return $query->whereHas('roles', function ($query) use ($type)
+        foreach ($ids as $search)
         {
-            $query->where('slug', $type);
-        });
+            $role = Role::search($idOrName)->firstOrFail();
+
+            $this->roles()->attach($role->id);
+        }
     }
 
     /**
-     * Add role to this user.
-     *
-     * @param int $id
+     * @param $idOrName
      */
-    public function addRole($id)
+    public function removeRole($idOrName)
     {
-        $this->roles()->attach($id);
+        $ids = is_array($idOrName) ? $idOrName : func_get_args();
+
+        foreach ($ids as $search)
+        {
+            $role = Role::search($search)->firstOrFail();
+
+            $this->roles()->detach($role->id);
+        }
     }
 
     /**
-     * Update roles.
      *
-     * @param  int $id
-     * @return void
      */
-    public function updateRole($id)
+    public function detachRoles()
     {
-        $this->roles()->detach($this->getRoleId());
+        $this->removeRole($this->roles->lists('id'));
+    }
 
-        $this->addRole($id);
+    /**
+     * @param $name
+     * @return bool
+     */
+    public function is($name)
+    {
+        foreach ($this->roles as $role)
+        {
+            if ($role->name == $name || $role->slug == $name)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
+    /**
+     * Determine whether the current user is not have role that given by name parameter.
+     *
+     * @return boolean
+     */
+    public function isNot($name)
+    {
+        return ! $this->is($name);
+    }
+
+    /**
+     * @param $name
+     * @return bool
+     */
+    public function can($name)
+    {
+        foreach ($this->roles as $role)
+        {
+            foreach ($role->permissions as $permission)
+            {
+                if ($permission->name == $name || $permission->slug == $name)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+    
+    /**
+     * Determine whether the current user can not do a specified permission.
+     *
+     * @return boolean
+     */
+    public function canNot($name)
+    {
+        return ! $this->can($name);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getPermissionsAttribute()
+    {
+        $permissions = new Collection;
+
+        foreach ($this->roles as $role)
+        {
+            foreach ($role->permissions as $permission)
+            {
+                $permissions->push($permission);
+            }
+        }
+
+        return $permissions;
     }
 
     /**
