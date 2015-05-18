@@ -2,7 +2,8 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class TrustyServiceProvider extends ServiceProvider {
+class TrustyServiceProvider extends ServiceProvider
+{
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -32,8 +33,7 @@ class TrustyServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        $this->app['trusty'] = $this->app->share(function ($app)
-        {
+        $this->app['trusty'] = $this->app->share(function ($app) {
             $auth = $app['auth']->driver();
 
             return new Trusty($auth, $app['router']);
@@ -49,5 +49,4 @@ class TrustyServiceProvider extends ServiceProvider {
     {
         return array('trusty');
     }
-
 }

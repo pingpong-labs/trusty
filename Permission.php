@@ -5,7 +5,8 @@ namespace Pingpong\Trusty;
 use Illuminate\Database\Eloquent\Model;
 use Pingpong\Trusty\Traits\SlugableTrait;
 
-class Permission extends Model {
+class Permission extends Model
+{
 
     use SlugableTrait;
 
@@ -25,5 +26,4 @@ class Permission extends Model {
     {
         return $this->belongsToMany(config('trusty.model.permission'))->withTimestamps();
     }
-
 }

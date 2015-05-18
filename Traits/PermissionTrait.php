@@ -2,7 +2,8 @@
 
 use Pingpong\Trusty\Facades\Trusty;
 
-trait PermissionTrait {
+trait PermissionTrait
+{
 
     /**
      * Filter the specified request by the given permissions.
@@ -14,8 +15,7 @@ trait PermissionTrait {
     {
         $permissions = is_array($permissions) ? $permissions : func_get_args();
 
-        $this->beforeFilter(function () use ($permissions)
-        {
+        $this->beforeFilter(function () use ($permissions) {
             Trusty::filterByPermission($permissions);
         });
     }
@@ -30,8 +30,7 @@ trait PermissionTrait {
     {
         $roles = is_array($roles) ? $roles : func_get_args();
 
-        $this->beforeFilter(function () use ($roles)
-        {
+        $this->beforeFilter(function () use ($roles) {
             Trusty::filterByRole($roles);
         });
     }

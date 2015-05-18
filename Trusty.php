@@ -5,7 +5,8 @@ use Illuminate\Routing\Router;
 use Pingpong\Trusty\Permission;
 use Pingpong\Trusty\Exceptions\PermissionDeniedException;
 
-class Trusty {
+class Trusty
+{
 
     /**
      * The avaliable HTTP Verbs.
@@ -35,8 +36,7 @@ class Trusty {
      */
     public function when($request, $permission)
     {
-        foreach ((array)$request as $uri)
-        {
+        foreach ((array)$request as $uri) {
             $this->router->when($uri, $permission, $this->httpVerbs);
         }
     }
@@ -51,12 +51,9 @@ class Trusty {
     {
         $permissions = $permissions ?: Permission::lists('slug');
 
-        foreach ($permissions as $permission)
-        {
-            $this->router->filter($permission, function () use ($permission)
-            {
-                if ( ! $this->auth->user()->can($permission))
-                {
+        foreach ($permissions as $permission) {
+            $this->router->filter($permission, function () use ($permission) {
+                if (! $this->auth->user()->can($permission)) {
                     $this->forbidden();
                 }
             });
@@ -83,10 +80,8 @@ class Trusty {
     {
         $permissions = is_array($permissions) ? $permissions : func_get_args();
 
-        foreach ($permissions as $permission)
-        {
-            if ( ! $this->auth->user()->can($permission))
-            {
+        foreach ($permissions as $permission) {
+            if (! $this->auth->user()->can($permission)) {
                 throw new PermissionDeniedException("You don't have permission to \"{$permission}\".");
             }
         }
@@ -102,13 +97,10 @@ class Trusty {
     {
         $roles = is_array($roles) ? $roles : func_get_args();
 
-        foreach ($roles as $role)
-        {
-            if ( ! $this->auth->user()->is($role))
-            {
+        foreach ($roles as $role) {
+            if (! $this->auth->user()->is($role)) {
                 throw new PermissionDeniedException("You aren't a \"{$role}\".");
             }
         }
     }
-
 }

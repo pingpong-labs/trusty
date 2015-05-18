@@ -5,7 +5,8 @@ namespace Pingpong\Trusty;
 use Illuminate\Database\Eloquent\Model;
 use Pingpong\Trusty\Traits\SlugableTrait;
 
-class Role extends Model {
+class Role extends Model
+{
 
     use SlugableTrait;
 
@@ -81,10 +82,8 @@ class Role extends Model {
      */
     public function can($name)
     {
-        foreach ($this->permissions as $permission)
-        {
-            if ($permission->name == $name)
-            {
+        foreach ($this->permissions as $permission) {
+            if ($permission->name == $name) {
                 return true;
             }
         }
@@ -101,12 +100,9 @@ class Role extends Model {
      */
     public function __call($method, $parameters = array())
     {
-        if (starts_with($method, 'can') and $method != 'can')
-        {
+        if (starts_with($method, 'can') and $method != 'can') {
             return $this->can(snake_case(substr($method, 3)));
-        }
-        else
-        {
+        } else {
             $query = $this->newQuery();
 
             return call_user_func_array(array($query, $method), $parameters);

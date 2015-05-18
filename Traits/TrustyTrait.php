@@ -3,7 +3,8 @@
 use Illuminate\Support\Collection;
 use Pingpong\Trusty\Role;
 
-trait TrustyTrait {
+trait TrustyTrait
+{
 
     /**
      * @return mixed
@@ -20,8 +21,7 @@ trait TrustyTrait {
     {
         $ids = is_array($idOrName) ? $idOrName : func_get_args();
 
-        foreach ($ids as $search)
-        {
+        foreach ($ids as $search) {
             $role = Role::search($idOrName)->firstOrFail();
 
             $this->roles()->attach($role->id);
@@ -35,8 +35,7 @@ trait TrustyTrait {
     {
         $ids = is_array($idOrName) ? $idOrName : func_get_args();
 
-        foreach ($ids as $search)
-        {
+        foreach ($ids as $search) {
             $role = Role::search($search)->firstOrFail();
 
             $this->roles()->detach($role->id);
@@ -57,10 +56,8 @@ trait TrustyTrait {
      */
     public function is($name)
     {
-        foreach ($this->roles as $role)
-        {
-            if ($role->name == $name || $role->slug == $name)
-            {
+        foreach ($this->roles as $role) {
+            if ($role->name == $name || $role->slug == $name) {
                 return true;
             }
         }
@@ -84,12 +81,9 @@ trait TrustyTrait {
      */
     public function can($name)
     {
-        foreach ($this->roles as $role)
-        {
-            foreach ($role->permissions as $permission)
-            {
-                if ($permission->name == $name || $permission->slug == $name)
-                {
+        foreach ($this->roles as $role) {
+            foreach ($role->permissions as $permission) {
+                if ($permission->name == $name || $permission->slug == $name) {
                     return true;
                 }
             }
@@ -115,10 +109,8 @@ trait TrustyTrait {
     {
         $permissions = new Collection;
 
-        foreach ($this->roles as $role)
-        {
-            foreach ($role->permissions as $permission)
-            {
+        foreach ($this->roles as $role) {
+            foreach ($role->permissions as $permission) {
                 $permissions->push($permission);
             }
         }
@@ -135,24 +127,16 @@ trait TrustyTrait {
      */
     public function __call($method, $parameters = array())
     {
-        if (starts_with($method, 'is') and $method != 'is')
-        {
+        if (starts_with($method, 'is') and $method != 'is') {
             return $this->is(snake_case(substr($method, 2)));
-        }
-        elseif (starts_with($method, 'can') and $method != 'can')
-        {
+        } elseif (starts_with($method, 'can') and $method != 'can') {
             return $this->can(snake_case(substr($method, 3)));
-        }
-        elseif (in_array($method, ['increment', 'decrement']))
-        {
+        } elseif (in_array($method, ['increment', 'decrement'])) {
             return call_user_func_array([$this, $method], $parameters);
-        }
-        else
-        {
+        } else {
             $query = $this->newQuery();
 
             return call_user_func_array([$query, $method], $parameters);
         }
     }
-
 }
