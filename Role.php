@@ -93,7 +93,7 @@ class Role extends Model
     public function can($name)
     {
         foreach ($this->permissions as $permission) {
-            if ($permission->name == $name) {
+            if ($permission->name == $name || $permission->id == $name) {
                 return true;
             }
         }
