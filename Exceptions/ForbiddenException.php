@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Trusty\Exceptions;
+<?php
+
+namespace Pingpong\Trusty\Exceptions;
 
 class ForbiddenException extends \Exception
 {

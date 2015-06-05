@@ -7,7 +7,6 @@ use Pingpong\Trusty\Traits\SlugableTrait;
 
 class Role extends Model
 {
-
     use SlugableTrait;
 
     /**
@@ -28,8 +27,11 @@ class Role extends Model
     }
 
     /**
+     * Query scope for searching permission.
+     *
      * @param $query
      * @param $search
+     *
      * @return mixed
      */
     public function scopeSearch($query, $search)
@@ -40,7 +42,9 @@ class Role extends Model
     }
 
     /**
-     * @param $id
+     * Attach permission to role.
+     *
+     * @param mixed $id
      */
     public function addPermission($id)
     {
@@ -48,7 +52,9 @@ class Role extends Model
     }
 
     /**
-     * @param $ids
+     * Detach permission from role.
+     *
+     * @param mixed $ids
      */
     public function removePermission($ids)
     {
@@ -58,13 +64,12 @@ class Role extends Model
     }
 
     /**
-     *
+     * Remove all permissions from role.
      */
     public function clearPermissions()
     {
         $this->removePermission($this->permissions->lists('id'));
     }
-
 
     /**
      * Relation to "User".
@@ -77,13 +82,16 @@ class Role extends Model
     }
 
     /**
-     * @param $name
+     * Determine wether the current role has permission that given by name parameter.
+     *
+     * @param string $name
+     *
      * @return bool
      */
     public function can($name)
     {
         foreach ($this->permissions as $permission) {
-            if ($permission->name == $name) {
+            if ($permission->name == $name || $permission->id == $name) {
                 return true;
             }
         }
@@ -94,9 +102,10 @@ class Role extends Model
     /**
      * Handle dynamic method.
      *
-     * @param  string $method
-     * @param  array $parameters
-     * @return boolean
+     * @param string $method
+     * @param array  $parameters
+     *
+     * @return bool
      */
     public function __call($method, $parameters = array())
     {

@@ -1,12 +1,15 @@
-<?php namespace Pingpong\Trusty\Traits;
+<?php
+
+namespace Pingpong\Trusty\Traits;
 
 use Illuminate\Support\Collection;
 use Pingpong\Trusty\Role;
 
 trait TrustyTrait
 {
-
     /**
+     * Relation belongs-to roles.
+     *
      * @return mixed
      */
     public function roles()
@@ -15,6 +18,8 @@ trait TrustyTrait
     }
 
     /**
+     * Add role to user.
+     *
      * @param $idOrName
      */
     public function addRole($idOrName)
@@ -29,6 +34,8 @@ trait TrustyTrait
     }
 
     /**
+     * Remove role from user.
+     *
      * @param $idOrName
      */
     public function removeRole($idOrName)
@@ -43,7 +50,7 @@ trait TrustyTrait
     }
 
     /**
-     *
+     * Remove all roles.
      */
     public function detachRoles()
     {
@@ -51,39 +58,45 @@ trait TrustyTrait
     }
 
     /**
+     * Determine whether the user has role that given by name parameter.
+     *
      * @param $name
+     *
      * @return bool
      */
     public function is($name)
     {
         foreach ($this->roles as $role) {
-            if ($role->name == $name || $role->slug == $name) {
+            if ($role->name == $name || $role->slug == $name || $role->id == $name) {
                 return true;
             }
         }
 
         return false;
     }
-    
+
     /**
      * Determine whether the current user is not have role that given by name parameter.
      *
-     * @return boolean
+     * @return bool
      */
     public function isNot($name)
     {
-        return ! $this->is($name);
+        return !$this->is($name);
     }
 
     /**
+     * Determine whether the user can do specific permission that given by name parameter.
+     *
      * @param $name
+     *
      * @return bool
      */
     public function can($name)
     {
         foreach ($this->roles as $role) {
             foreach ($role->permissions as $permission) {
-                if ($permission->name == $name || $permission->slug == $name) {
+                if ($permission->name == $name || $permission->slug == $name || $permission->id == $name) {
                     return true;
                 }
             }
@@ -91,23 +104,25 @@ trait TrustyTrait
 
         return false;
     }
-    
+
     /**
      * Determine whether the current user can not do a specified permission.
      *
-     * @return boolean
+     * @return bool
      */
     public function canNot($name)
     {
-        return ! $this->can($name);
+        return !$this->can($name);
     }
 
     /**
+     * Get 'permissions' attribute.
+     *
      * @return Collection
      */
     public function getPermissionsAttribute()
     {
-        $permissions = new Collection;
+        $permissions = new Collection();
 
         foreach ($this->roles as $role) {
             foreach ($role->permissions as $permission) {
@@ -121,9 +136,10 @@ trait TrustyTrait
     /**
      * Handle dynamic method.
      *
-     * @param  string $method
-     * @param  array $parameters
-     * @return boolean
+     * @param string $method
+     * @param array  $parameters
+     *
+     * @return bool
      */
     public function __call($method, $parameters = array())
     {
