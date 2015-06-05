@@ -1,10 +1,11 @@
-<?php namespace Pingpong\Trusty\Traits;
+<?php
+
+namespace Pingpong\Trusty\Traits;
 
 use Illuminate\Support\Str;
 
 trait SlugableTrait
 {
-
     /**
      * Set slug property.
      *

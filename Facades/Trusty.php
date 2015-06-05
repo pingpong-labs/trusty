@@ -1,10 +1,11 @@
-<?php namespace Pingpong\Trusty\Facades;
+<?php
+
+namespace Pingpong\Trusty\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 class Trusty extends Facade
 {
-
     /**
      * Get the registered name of the component.
      *

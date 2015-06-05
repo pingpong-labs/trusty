@@ -7,7 +7,6 @@ use Pingpong\Trusty\Traits\SlugableTrait;
 
 class Permission extends Model
 {
-
     use SlugableTrait;
 
     /**

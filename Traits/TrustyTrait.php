@@ -1,11 +1,12 @@
-<?php namespace Pingpong\Trusty\Traits;
+<?php
+
+namespace Pingpong\Trusty\Traits;
 
 use Illuminate\Support\Collection;
 use Pingpong\Trusty\Role;
 
 trait TrustyTrait
 {
-
     /**
      * @return mixed
      */
@@ -52,6 +53,7 @@ trait TrustyTrait
 
     /**
      * @param $name
+     *
      * @return bool
      */
     public function is($name)
@@ -64,19 +66,20 @@ trait TrustyTrait
 
         return false;
     }
-    
+
     /**
      * Determine whether the current user is not have role that given by name parameter.
      *
-     * @return boolean
+     * @return bool
      */
     public function isNot($name)
     {
-        return ! $this->is($name);
+        return !$this->is($name);
     }
 
     /**
      * @param $name
+     *
      * @return bool
      */
     public function can($name)
@@ -91,15 +94,15 @@ trait TrustyTrait
 
         return false;
     }
-    
+
     /**
      * Determine whether the current user can not do a specified permission.
      *
-     * @return boolean
+     * @return bool
      */
     public function canNot($name)
     {
-        return ! $this->can($name);
+        return !$this->can($name);
     }
 
     /**
@@ -107,7 +110,7 @@ trait TrustyTrait
      */
     public function getPermissionsAttribute()
     {
-        $permissions = new Collection;
+        $permissions = new Collection();
 
         foreach ($this->roles as $role) {
             foreach ($role->permissions as $permission) {
@@ -121,9 +124,10 @@ trait TrustyTrait
     /**
      * Handle dynamic method.
      *
-     * @param  string $method
-     * @param  array $parameters
-     * @return boolean
+     * @param string $method
+     * @param array  $parameters
+     *
+     * @return bool
      */
     public function __call($method, $parameters = array())
     {

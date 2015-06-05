@@ -7,7 +7,6 @@ use Pingpong\Trusty\Traits\SlugableTrait;
 
 class Role extends Model
 {
-
     use SlugableTrait;
 
     /**
@@ -30,6 +29,7 @@ class Role extends Model
     /**
      * @param $query
      * @param $search
+     *
      * @return mixed
      */
     public function scopeSearch($query, $search)
@@ -65,7 +65,6 @@ class Role extends Model
         $this->removePermission($this->permissions->lists('id'));
     }
 
-
     /**
      * Relation to "User".
      *
@@ -78,6 +77,7 @@ class Role extends Model
 
     /**
      * @param $name
+     *
      * @return bool
      */
     public function can($name)
@@ -94,9 +94,10 @@ class Role extends Model
     /**
      * Handle dynamic method.
      *
-     * @param  string $method
-     * @param  array $parameters
-     * @return boolean
+     * @param string $method
+     * @param array  $parameters
+     *
+     * @return bool
      */
     public function __call($method, $parameters = array())
     {
