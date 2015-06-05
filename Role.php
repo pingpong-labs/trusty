@@ -27,9 +27,10 @@ class Role extends Model
     }
 
     /**
+     * Query scope for searching permission.
+     * 
      * @param $query
      * @param $search
-     *
      * @return mixed
      */
     public function scopeSearch($query, $search)
@@ -40,7 +41,10 @@ class Role extends Model
     }
 
     /**
-     * @param $id
+     * Attach permission to role.
+     * 
+     * @param mixed $id
+     * @return void
      */
     public function addPermission($id)
     {
@@ -48,7 +52,10 @@ class Role extends Model
     }
 
     /**
-     * @param $ids
+     * Detach permission from role.
+     * 
+     * @param mixed $ids
+     * @return void
      */
     public function removePermission($ids)
     {
@@ -58,7 +65,9 @@ class Role extends Model
     }
 
     /**
+     * Remove all permissions from role.
      *
+     * @return void
      */
     public function clearPermissions()
     {
@@ -76,8 +85,9 @@ class Role extends Model
     }
 
     /**
-     * @param $name
-     *
+     * Determine wether the current role has permission that given by name parameter.
+     * 
+     * @param string $name
      * @return bool
      */
     public function can($name)
