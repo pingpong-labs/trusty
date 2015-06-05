@@ -70,7 +70,7 @@ trait TrustyTrait
     public function is($name)
     {
         foreach ($this->roles as $role) {
-            if ($role->name == $name || $role->slug == $name) {
+            if ($role->name == $name || $role->slug == $name || $role->id == $name) {
                 return true;
             }
         }
@@ -98,7 +98,7 @@ trait TrustyTrait
     {
         foreach ($this->roles as $role) {
             foreach ($role->permissions as $permission) {
-                if ($permission->name == $name || $permission->slug == $name) {
+                if ($permission->name == $name || $permission->slug == $name || $permission->id == $name) {
                     return true;
                 }
             }
