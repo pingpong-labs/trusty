@@ -32,13 +32,13 @@ class Trusty
      *
      * @param string|array $request
      * @param string       $permission
-     *
-     * @return self
+     * @param string       $httpVerbs
+     * @return void
      */
-    public function when($request, $permission)
+    public function when($request, $permission, $httpVerbs = null)
     {
         foreach ((array) $request as $uri) {
-            $this->router->when($uri, $permission, $this->httpVerbs);
+            $this->router->when($uri, $permission, $httpVerbs ?: $this->httpVerbs);
         }
     }
 
