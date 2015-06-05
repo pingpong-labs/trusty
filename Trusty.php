@@ -33,7 +33,6 @@ class Trusty
      * @param string|array $request
      * @param string       $permission
      * @param string       $httpVerbs
-     * @return void
      */
     public function when($request, $permission, $httpVerbs = null)
     {
