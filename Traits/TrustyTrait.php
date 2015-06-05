@@ -8,6 +8,8 @@ use Pingpong\Trusty\Role;
 trait TrustyTrait
 {
     /**
+     * Relation belongs-to roles.
+     * 
      * @return mixed
      */
     public function roles()
@@ -16,7 +18,10 @@ trait TrustyTrait
     }
 
     /**
+     * Add role to user.
+     * 
      * @param $idOrName
+     * @return void
      */
     public function addRole($idOrName)
     {
@@ -30,7 +35,10 @@ trait TrustyTrait
     }
 
     /**
+     * Remove role from user.
+     * 
      * @param $idOrName
+     * @return void
      */
     public function removeRole($idOrName)
     {
@@ -44,7 +52,9 @@ trait TrustyTrait
     }
 
     /**
+     * Remove all roles.
      *
+     * @return void
      */
     public function detachRoles()
     {
@@ -52,8 +62,9 @@ trait TrustyTrait
     }
 
     /**
+     * Determine whether the user has role that given by name parameter.
+     * 
      * @param $name
-     *
      * @return bool
      */
     public function is($name)
@@ -78,8 +89,9 @@ trait TrustyTrait
     }
 
     /**
+     * Determine whether the user can do specific permission that given by name parameter.
+     * 
      * @param $name
-     *
      * @return bool
      */
     public function can($name)
@@ -106,6 +118,8 @@ trait TrustyTrait
     }
 
     /**
+     * Get 'permissions' attribute.
+     * 
      * @return Collection
      */
     public function getPermissionsAttribute()
