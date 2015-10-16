@@ -23,6 +23,6 @@ class Permission extends Model
      */
     public function roles()
     {
-        return $this->belongsToMany(config('trusty.model.permission'))->withTimestamps();
+        return $this->belongsToMany(config('trusty.model.role'))->withTimestamps();
     }
 }
